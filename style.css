@@ -18,6 +18,37 @@ body {
     padding: 40px 20px;
 }
 
+/* Переключатель языков */
+.lang-switcher {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.lang-btn {
+    background-color: #2A2A2A;
+    color: #AAAAAA;
+    border: 2px solid #2D2D2D;
+    border-radius: 8px;
+    padding: 8px 16px;
+    margin-left: 5px;
+    font-family: 'Consolas', monospace;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.lang-btn:hover {
+    border-color: #00FF66;
+    color: #00FF66;
+}
+
+.lang-btn.active {
+    background-color: #00FF66;
+    color: #111111;
+    border-color: #00FF66;
+    box-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
+}
+
 header {
     text-align: center;
     margin-bottom: 60px;
@@ -40,21 +71,6 @@ h1 {
 .desc {
     font-size: 1.1rem;
     color: #AAAAAA;
-}
-
-/* Блок авторизации */
-#auth-area {
-    margin: 20px 0;
-}
-
-#guest-view, #user-view {
-    display: inline-block;
-}
-
-#user-view p {
-    color: #00FF66;
-    font-weight: bold;
-    margin-bottom: 10px;
 }
 
 /* Карточки */
@@ -85,10 +101,27 @@ h1 {
     padding-bottom: 10px;
 }
 
-.card p {
+.card p, .card ol {
     color: #CCCCCC;
     margin-bottom: 20px;
     font-size: 0.95rem;
+}
+
+.card ol {
+    padding-left: 20px;
+    list-style-type: none;
+    counter-reset: step;
+}
+
+.card ol li {
+    counter-increment: step;
+    margin-bottom: 8px;
+}
+
+.card ol li::before {
+    content: counter(step) ". ";
+    color: #00FF66;
+    font-weight: bold;
 }
 
 /* Кнопки */
@@ -162,41 +195,20 @@ h1 {
     margin-top: 10px;
 }
 
-/* Неоновая кнопка входа */
-.btn-neon {
-    background-color: transparent;
-    border: 2px solid #00FF66;
-    color: #00FF66;
-    padding: 12px 24px;
-    border-radius: 12px;
-    font-weight: bold;
-    box-shadow: 0 0 10px rgba(0, 255, 102, 0.4);
-}
-.btn-neon:hover {
-    background-color: #00FF66;
-    color: #111111;
-    box-shadow: 0 0 25px rgba(0, 255, 102, 0.8);
+/* Блок инструкций */
+.instructions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-bottom: 60px;
 }
 
-.btn-upload {
-    background-color: #00BCFF;
-    color: #111111;
-    margin-right: 10px;
-}
-.btn-upload:hover {
-    background-color: #0099CC;
-    color: white;
+@media (max-width: 700px) {
+    .instructions {
+        grid-template-columns: 1fr;
+    }
 }
 
-.btn-logout {
-    background-color: #FF3333;
-    color: white;
-}
-.btn-logout:hover {
-    background-color: #CC0000;
-}
-
-/* Футер */
 footer {
     text-align: center;
     padding-top: 30px;
@@ -211,16 +223,12 @@ footer {
     color: #555;
 }
 
+/* Адаптивность */
 @media (max-width: 600px) {
     h1 {
         font-size: 2rem;
     }
     .card-grid {
         grid-template-columns: 1fr;
-    }
-    .btn-neon, .btn-upload, .btn-logout {
-        display: block;
-        width: 100%;
-        margin: 5px 0;
     }
 }
