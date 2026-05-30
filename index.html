@@ -5,106 +5,123 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TLD Mod Manager — The Long Drive</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Clerk -->
-    <script src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"></script>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🚚 THE LONG DRIVE</h1>
-            <p class="subtitle">MOD MANAGER v1.0</p>
-            <p class="desc">Брутальный инструмент для установки и управления модами на BepInEx</p>
-
-            <!-- Блок авторизации -->
-            <div id="auth-area">
-                <!-- Гостевой вид -->
-                <div id="guest-view">
-                    <button id="sign-in-btn" class="btn btn-neon">ВОЙТИ / РЕГИСТРАЦИЯ</button>
-                </div>
-                <!-- Вид пользователя -->
-                <div id="user-view" style="display: none;">
-                    <p>Привет, <span id="user-email"></span>!</p>
-                    <button id="upload-mod-btn" class="btn btn-upload">ВЫЛОЖИТЬ СВОЙ МОД</button>
-                    <button id="logout-btn" class="btn btn-logout">ВЫЙТИ</button>
-                </div>
+            <!-- Переключатель языков -->
+            <div class="lang-switcher">
+                <button id="btn-ru" class="lang-btn active">RU</button>
+                <button id="btn-en" class="lang-btn">EN</button>
             </div>
+
+            <h1 data-ru="🚚 THE LONG DRIVE" data-en="🚚 THE LONG DRIVE">🚚 THE LONG DRIVE</h1>
+            <p class="subtitle" data-ru="MOD MANAGER v1.0" data-en="MOD MANAGER v1.0">MOD MANAGER v1.0</p>
+            <p class="desc" data-ru="Брутальный инструмент для установки и управления модами на BepInEx"
+               data-en="Brutal tool for installing and managing BepInEx mods">
+               Брутальный инструмент для установки и управления модами на BepInEx</p>
         </header>
 
         <main>
             <div class="card-grid">
+                <!-- Карточка Скачать менеджер -->
                 <div class="card">
-                    <h2>📥 СКАЧАТЬ МЕНЕДЖЕР</h2>
-                    <p>Последняя версия с автоопределением папки игры и поддержкой BepInEx.</p>
-                    <a href="#" class="btn btn-download">СКАЧАТЬ (Windows x64)</a>
+                    <h2 data-ru="📥 СКАЧАТЬ МЕНЕДЖЕР" data-en="📥 DOWNLOAD MANAGER">📥 СКАЧАТЬ МЕНЕДЖЕР</h2>
+                    <p data-ru="Последняя версия с автоопределением папки игры и поддержкой BepInEx."
+                       data-en="Latest version with auto-detection of game folder and BepInEx support.">
+                       Последняя версия с автоопределением папки игры и поддержкой BepInEx.</p>
+                    <a href="#" class="btn btn-download" data-ru="СКАЧАТЬ (Windows x64)" data-en="DOWNLOAD (Windows x64)">СКАЧАТЬ (Windows x64)</a>
+                </div>
+
+                <!-- Карточка Установка BepInEx -->
+                <div class="card">
+                    <h2 data-ru="📦 УСТАНОВКА BEPINEX" data-en="📦 BEPINEX INSTALLATION">📦 УСТАНОВКА BEPINEX</h2>
+                    <p data-ru="База для работы любых модов. Обязательно установите перед использованием."
+                       data-en="Required base for all mods. Install before using any mods.">
+                       База для работы любых модов. Обязательно установите перед использованием.</p>
+                    <a href="https://github.com/BepInEx/BepInEx" target="_blank" class="btn btn-official"
+                       data-ru="ОФИЦИАЛЬНЫЙ САЙТ" data-en="OFFICIAL SITE">ОФИЦИАЛЬНЫЙ САЙТ</a>
+                    <a href="#" class="btn btn-mirror" data-ru="СКАЧАТЬ С НАШЕГО САЙТА" data-en="DOWNLOAD FROM OUR SITE">СКАЧАТЬ С НАШЕГО САЙТА</a>
+                </div>
+
+                <!-- Карточка Разработчикам -->
+                <div class="card">
+                    <h2 data-ru="🛠 РАЗРАБОТЧИКАМ" data-en="🛠 FOR DEVELOPERS">🛠 РАЗРАБОТЧИКАМ</h2>
+                    <p data-ru="Гайды по созданию модов, подключению библиотек и публикации."
+                       data-en="Guides for creating mods, adding references, and publishing.">
+                       Гайды по созданию модов, подключению библиотек и публикации.</p>
+                    <a href="#" class="btn btn-guide" data-ru="ОТКРЫТЬ ДОКУМЕНТАЦИЮ" data-en="OPEN DOCUMENTATION">ОТКРЫТЬ ДОКУМЕНТАЦИЮ</a>
+                </div>
+
+                <!-- Карточка Сообщество -->
+                <div class="card">
+                    <h2 data-ru="🌐 СООБЩЕСТВО" data-en="🌐 COMMUNITY">🌐 СООБЩЕСТВО</h2>
+                    <p data-ru="Discord-сервер, новости, голосования за новые функции."
+                       data-en="Discord server, news, feature voting.">
+                       Discord-сервер, новости, голосования за новые функции.</p>
+                    <a href="#" class="btn btn-discord" data-ru="ПРИСОЕДИНИТЬСЯ" data-en="JOIN US">ПРИСОЕДИНИТЬСЯ</a>
+                </div>
+            </div>
+
+            <!-- Детальные инструкции -->
+            <div class="instructions">
+                <div class="card">
+                    <h2 data-ru="📦 КАК УСТАНОВИТЬ BEPINEX" data-en="📦 HOW TO INSTALL BEPINEX">📦 КАК УСТАНОВИТЬ BEPINEX</h2>
+                    <ol data-ru="1. Скачайте архив (версия x64).<br>2. Перетащите ВСЕ файлы из архива в корень игры, где лежит TheLongDrive.exe.<br>3. Папка BepInEx должна быть рядом с .exe, не внутри других папок!<br>4. Запустите игру один раз, чтобы создалась папка plugins, и закройте её."
+                        data-en="1. Download the archive (x64 version).<br>2. Drag ALL files from the archive into the game root, where TheLongDrive.exe is.<br>3. The BepInEx folder must be next to the .exe, not inside other folders!<br>4. Launch the game once to create the plugins folder, then close it.">
+                        1. Скачайте архив (версия x64).<br>2. Перетащите ВСЕ файлы из архива в корень игры, где лежит TheLongDrive.exe.<br>3. Папка BepInEx должна быть рядом с .exe, не внутри других папок!<br>4. Запустите игру один раз, чтобы создалась папка plugins, и закройте её.</ol>
                 </div>
                 <div class="card">
-                    <h2>📦 УСТАНОВКА BEPINEX</h2>
-                    <p>База для работы любых модов. Обязательно установите перед использованием.</p>
-                    <a href="https://github.com/BepInEx/BepInEx" target="_blank" class="btn btn-official">ОФИЦИАЛЬНЫЙ САЙТ</a>
-                    <a href="#" class="btn btn-mirror">СКАЧАТЬ С НАШЕГО САЙТА</a>
-                </div>
-                <div class="card">
-                    <h2>🛠 РАЗРАБОТЧИКАМ</h2>
-                    <p>Гайды по созданию модов, подключению библиотек и публикации.</p>
-                    <a href="#" class="btn btn-guide">ОТКРЫТЬ ДОКУМЕНТАЦИЮ</a>
-                </div>
-                <div class="card">
-                    <h2>🌐 СООБЩЕСТВО</h2>
-                    <p>Discord-сервер, новости, голосования за новые функции.</p>
-                    <a href="#" class="btn btn-discord">ПРИСОЕДИНИТЬСЯ</a>
+                    <h2 data-ru="🛠 КАК СОЗДАТЬ МОД НА C#" data-en="🛠 HOW TO CREATE A C# MOD">🛠 КАК СОЗДАТЬ МОД НА C#</h2>
+                    <ol data-ru="1. Visual Studio с нагрузкой '.NET desktop development'.<br>2. Проект: Библиотека классов (.NET Framework 4.7.2/4.8).<br>3. Добавьте ссылки: Assembly-CSharp.dll, UnityEngine.dll, UnityEngine.CoreModule.dll, BepInEx.dll.<br>4. Класс наследуйте от BaseUnityPlugin и поставьте [BepInPlugin]."
+                        data-en="1. Visual Studio with '.NET desktop development'.<br>2. Project: Class Library (.NET Framework 4.7.2/4.8).<br>3. Add references: Assembly-CSharp.dll, UnityEngine.dll, UnityEngine.CoreModule.dll, BepInEx.dll.<br>4. Inherit from BaseUnityPlugin and add [BepInPlugin].">
+                        1. Visual Studio с нагрузкой '.NET desktop development'.<br>2. Проект: Библиотека классов (.NET Framework 4.7.2/4.8).<br>3. Добавьте ссылки: Assembly-CSharp.dll, UnityEngine.dll, UnityEngine.CoreModule.dll, BepInEx.dll.<br>4. Класс наследуйте от BaseUnityPlugin и поставьте [BepInPlugin].</ol>
                 </div>
             </div>
         </main>
 
         <footer>
-            <p>© 2024-2026 TLD Mod Manager. Все права защищены. Неофициальный инструмент.</p>
-            <p class="disclaimer">Разработчик не несёт ответственности за сломанные сохранения. Модифицируйте игру на свой страх и риск.</p>
+            <p data-ru="© 2024-2026 TLD Mod Manager. Все права защищены. Неофициальный инструмент."
+               data-en="© 2024-2026 TLD Mod Manager. All rights reserved. Unofficial tool.">
+               © 2024-2026 TLD Mod Manager. Все права защищены. Неофициальный инструмент.</p>
+            <p class="disclaimer"
+               data-ru="Разработчик не несёт ответственности за сломанные сохранения. Модифицируйте игру на свой страх и риск."
+               data-en="The developer is not responsible for corrupted saves. Modify the game at your own risk.">
+               Разработчик не несёт ответственности за сломанные сохранения. Модифицируйте игру на свой страх и риск.</p>
         </footer>
     </div>
 
-    <!-- Авторизация Clerk -->
     <script>
-        // ВАШ КЛЮЧ
-        const clerk = new Clerk('pk_test_ZmFpci1mZXJyZXQtMC5jbGVyay5hY2NvdW50cy5kZXYk');
+        const btnRu = document.getElementById('btn-ru');
+        const btnEn = document.getElementById('btn-en');
 
-        clerk.load().then(async () => {
-            if (clerk.session) {
-                showUserView(clerk.user);
-            } else {
-                showGuestView();
-            }
+        function switchLang(lang) {
+            document.documentElement.lang = lang;
+            // Обновляем кнопки
+            btnRu.classList.toggle('active', lang === 'ru');
+            btnEn.classList.toggle('active', lang === 'en');
 
-            clerk.addListener(({ user, session }) => {
-                if (session) {
-                    showUserView(user);
-                } else {
-                    showGuestView();
+            // Все элементы с атрибутами data-ru/data-en
+            const elements = document.querySelectorAll('[data-ru][data-en]');
+            elements.forEach(el => {
+                const text = el.getAttribute(`data-${lang}`);
+                if (text) {
+                    // Для текстовых узлов: если внутри есть только текст, меняем textContent,
+                    // если есть вложенные элементы (как ol), то innerHTML.
+                    if (el.children.length === 0) {
+                        el.textContent = text;
+                    } else {
+                        el.innerHTML = text;
+                    }
                 }
             });
-
-            document.getElementById('sign-in-btn').addEventListener('click', () => {
-                clerk.openSignIn();
-            });
-
-            document.getElementById('logout-btn').addEventListener('click', async () => {
-                await clerk.signOut();
-            });
-
-            document.getElementById('upload-mod-btn').addEventListener('click', () => {
-                alert('Функция загрузки модов появится в следующем обновлении!');
-            });
-        });
-
-        function showGuestView() {
-            document.getElementById('guest-view').style.display = 'block';
-            document.getElementById('user-view').style.display = 'none';
         }
 
-        function showUserView(user) {
-            document.getElementById('guest-view').style.display = 'none';
-            document.getElementById('user-view').style.display = 'block';
-            document.getElementById('user-email').textContent = user.primaryEmailAddress.emailAddress;
-        }
+        btnRu.addEventListener('click', () => switchLang('ru'));
+        btnEn.addEventListener('click', () => switchLang('en'));
+
+        // Инициализация: русский по умолчанию
+        switchLang('ru');
     </script>
 </body>
 </html>
