@@ -4,15 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TLD Mods — Моды для The Long Drive</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Clerk -->
-    <script src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"></script>
-    <!-- Firebase -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, updateDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
-        window.firebaseModules = { initializeApp, getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, updateDoc };
-    </script>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
     <div class="container">
@@ -66,7 +61,7 @@
         <!-- Модальное окно загрузки / редактирования -->
         <div id="uploadModal" class="modal">
             <div class="modal-content animate-pop">
-                <span class="close" onclick="closeModal()">&times;</span>
+                <span class="close" onclick="resetUploadForm(); closeModal()">&times;</span>
                 <h2 id="modalTitle">📤 Загрузить новый мод</h2>
                 <form id="uploadForm">
                     <input type="text" id="modName" placeholder="Название мода" required>
@@ -93,26 +88,12 @@
             </div>
         </div>
 
-        <!-- Cookie Consent Banner -->
-        <div id="cookieBanner" class="cookie-banner" style="display: none;">
-            <div class="cookie-content">
-                <div class="cookie-text">
-                    <h3>🍪 Мы используем файлы cookie</h3>
-                    <p>Продолжая использовать сайт, вы соглашаетесь с обработкой cookie в соответствии с нашей политикой.</p>
-                </div>
-                <div class="cookie-buttons">
-                    <button id="acceptCookies" class="btn btn-accept">ПРИНЯТЬ</button>
-                    <button id="declineCookies" class="btn btn-decline">ОТКЛОНИТЬ</button>
-                </div>
-            </div>
-        </div>
-
         <footer>
             <p>© 2024-2026 TLD Mods. Все права защищены. Неофициальный архив.</p>
             <p class="disclaimer">Моды загружаются пользователями. Администрация не несёт ответственности за их содержимое.</p>
         </footer>
     </div>
 
-    <script src="app.js"></script>
+    <script src="app.js?v=2"></script>
 </body>
 </html>
