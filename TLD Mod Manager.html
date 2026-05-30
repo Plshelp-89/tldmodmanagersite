@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TLD Mod Manager — The Long Drive</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Clerk -->
+    <script src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚚 THE LONG DRIVE</h1>
+            <p class="subtitle">MOD MANAGER v1.0</p>
+            <p class="desc">Брутальный инструмент для установки и управления модами на BepInEx</p>
+
+            <!-- Блок авторизации -->
+            <div id="auth-area">
+                <!-- Гостевой вид -->
+                <div id="guest-view">
+                    <button id="sign-in-btn" class="btn btn-neon">ВОЙТИ / РЕГИСТРАЦИЯ</button>
+                </div>
+                <!-- Вид пользователя -->
+                <div id="user-view" style="display: none;">
+                    <p>Привет, <span id="user-email"></span>!</p>
+                    <button id="upload-mod-btn" class="btn btn-upload">ВЫЛОЖИТЬ СВОЙ МОД</button>
+                    <button id="logout-btn" class="btn btn-logout">ВЫЙТИ</button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="card-grid">
+                <div class="card">
+                    <h2>📥 СКАЧАТЬ МЕНЕДЖЕР</h2>
+                    <p>Последняя версия с автоопределением папки игры и поддержкой BepInEx.</p>
+                    <a href="#" class="btn btn-download">СКАЧАТЬ (Windows x64)</a>
+                </div>
+                <div class="card">
+                    <h2>📦 УСТАНОВКА BEPINEX</h2>
+                    <p>База для работы любых модов. Обязательно установите перед использованием.</p>
+                    <a href="https://github.com/BepInEx/BepInEx" target="_blank" class="btn btn-official">ОФИЦИАЛЬНЫЙ САЙТ</a>
+                    <a href="#" class="btn btn-mirror">СКАЧАТЬ С НАШЕГО САЙТА</a>
+                </div>
+                <div class="card">
+                    <h2>🛠 РАЗРАБОТЧИКАМ</h2>
+                    <p>Гайды по созданию модов, подключению библиотек и публикации.</p>
+                    <a href="#" class="btn btn-guide">ОТКРЫТЬ ДОКУМЕНТАЦИЮ</a>
+                </div>
+                <div class="card">
+                    <h2>🌐 СООБЩЕСТВО</h2>
+                    <p>Discord-сервер, новости, голосования за новые функции.</p>
+                    <a href="#" class="btn btn-discord">ПРИСОЕДИНИТЬСЯ</a>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2024-2026 TLD Mod Manager. Все права защищены. Неофициальный инструмент.</p>
+            <p class="disclaimer">Разработчик не несёт ответственности за сломанные сохранения. Модифицируйте игру на свой страх и риск.</p>
+        </footer>
+    </div>
+
+    <!-- Авторизация Clerk -->
+    <script>
+        // ВАШ КЛЮЧ
+        const clerk = new Clerk('pk_test_ZmFpci1mZXJyZXQtMC5jbGVyay5hY2NvdW50cy5kZXYk');
+
+        clerk.load().then(async () => {
+            if (clerk.session) {
+                showUserView(clerk.user);
+            } else {
+                showGuestView();
+            }
+
+            clerk.addListener(({ user, session }) => {
+                if (session) {
+                    showUserView(user);
+                } else {
+                    showGuestView();
+                }
+            });
+
+            document.getElementById('sign-in-btn').addEventListener('click', () => {
+                clerk.openSignIn();
+            });
+
+            document.getElementById('logout-btn').addEventListener('click', async () => {
+                await clerk.signOut();
+            });
+
+            document.getElementById('upload-mod-btn').addEventListener('click', () => {
+                alert('Функция загрузки модов появится в следующем обновлении!');
+            });
+        });
+
+        function showGuestView() {
+            document.getElementById('guest-view').style.display = 'block';
+            document.getElementById('user-view').style.display = 'none';
+        }
+
+        function showUserView(user) {
+            document.getElementById('guest-view').style.display = 'none';
+            document.getElementById('user-view').style.display = 'block';
+            document.getElementById('user-email').textContent = user.primaryEmailAddress.emailAddress;
+        }
+    </script>
+</body>
+</html>
