@@ -154,27 +154,93 @@ onAuthStateChanged(auth, user => {
     if (user) loadMods();
 });
 
-// Кнопка "Войти / Регистрация" — теперь показывает выбор
+// Модальное окно для входа
 document.getElementById('signInBtn').addEventListener('click', () => {
-    const choice = prompt('Введите "email" для входа по почте или "google" для входа через Google:');
-    if (choice === 'google') {
+    const modal = document.getElementById('uploadModal');
+    document.getElementById('modalTitle').textContent = '🔑 Вход / Регистрация';
+    document.getElementById('submitModBtn').style.display = 'none';
+    
+    // Создаём форму входа
+    const form = document.getElementById('uploadForm');
+    form.innerHTML = `
+        <button type="button" id="googleLogin" class="btn btn-download" style="background:#4285F4; color: white;">Войти через Google</button>
+        <hr style="margin: 15px 0; border-color: #2a2a2a;">
+        <input type="email" id="loginEmail" placeholder="Email" required>
+        <input type="password" id="loginPassword" placeholder="Пароль" required>
+        <button type="submit" class="btn btn-download">Войти / Зарегистрироваться</button>
+    `;
+
+    document.getElementById('googleLogin').addEventListener('click', async () => {
         const provider = new GoogleAuthProvider();
-        signInWithPopup(auth, provider).catch(err => alert(err.message));
-    } else if (choice === 'email') {
-        const email = prompt('Введите email:');
-        if (!email) return;
-        const password = prompt('Введите пароль (или придумайте для регистрации):');
-        if (!password) return;
-        signInWithEmailAndPassword(auth, email, password)
-            .catch(() => {
+        try {
+            await signInWithPopup(auth, provider);
+            closeModal();
+        } catch (err) {
+            alert('Ошибка: ' + err.message);
+        }
+    });
+
+    form.onsubmit = async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            closeModal();
+        } catch (err) {
+            if (err.code === 'auth/user-not-found' || err.code === 'auth/invalid-credential') {
                 if (confirm('Аккаунт не найден. Создать новый?')) {
-                    createUserWithEmailAndPassword(auth, email, password).catch(err => alert(err.message));
+                    try {
+                        await createUserWithEmailAndPassword(auth, email, password);
+                        closeModal();
+                    } catch (createErr) {
+                        alert('Ошибка: ' + createErr.message);
+                    }
                 }
-            });
-    }
+            } else {
+                alert('Ошибка: ' + err.message);
+            }
+        }
+    };
+
+    modal.style.display = 'flex';
 });
 
 document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
+
+// При закрытии модального окна восстанавливаем форму загрузки
+function resetUploadForm() {
+    const form = document.getElementById('uploadForm');
+    form.innerHTML = `
+        <input type="text" id="modName" placeholder="Название мода" required>
+        <textarea id="modDesc" placeholder="Описание мода" required></textarea>
+        <div class="row">
+            <input type="text" id="modAuthor" placeholder="Автор">
+            <input type="text" id="modVersion" placeholder="Версия (1.0.0)">
+        </div>
+        <input type="url" id="modDownload" placeholder="Ссылка на скачивание" required>
+        <input type="url" id="modImage" placeholder="Ссылка на изображение (необязательно)">
+        <input type="url" id="modMirror" placeholder="Ссылка на зеркало (необязательно)">
+        <select id="modCategory" required>
+            <option value="">Выберите категорию</option>
+            <option value="gameplay">Геймплей</option>
+            <option value="graphics">Графика</option>
+            <option value="vehicles">Транспорт</option>
+            <option value="weapons">Оружие</option>
+            <option value="cheats">Читы</option>
+            <option value="other">Другое</option>
+        </select>
+        <input type="hidden" id="editModId">
+        <button type="submit" id="submitModBtn" class="btn btn-download">ЗАГРУЗИТЬ МОД</button>
+    `;
+    document.getElementById('submitModBtn').style.display = 'block';
+}
+
+// Восстанавливаем форму при закрытии окна
+document.querySelector('.close').addEventListener('click', () => {
+    resetUploadForm();
+    closeModal();
+});
 
 // Первая загрузка
 loadMods();
