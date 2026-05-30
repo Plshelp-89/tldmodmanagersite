@@ -21,7 +21,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     const bannedCollection = collection(db, "bannedUsers");
 
     // Clerk
-    const clerk = new Clerk('pk_test_ZmFpci1mZXJyZXMtMC5jbGVyay5hY2NvdW50cy5kZXYk');
+    const clerk = new Clerk('pk_live_Y2xlcmsucGxzaGVscC04OS5naXRodWIuaW8k');
 
     let allMods = [];
     let currentCategory = 'all';
